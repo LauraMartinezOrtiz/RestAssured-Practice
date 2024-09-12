@@ -17,8 +17,8 @@ Feature: Client testing CRUD
     When I retrieve the details of the client with ID "1"
     Then the response should have a status code of 200
     And the response should have the following details:
-      | Name   | LastName | Gender | Country  | City   | Id |
-      | Manuel | Munoz    | Man    | Colombia | Bogota | 1  |
+      | Name  | LastName | Country | City   | Email                     | Phone          | Gender | PhoneNumber  | Id |
+      | Maria | Garcia   | Spain   | Madrid | Gregg_Volkman12@gmail.com | (922) 600-9149 | Female | 789-456-1230 | 1  |
     And validates the response with client JSON schema
 
   @smoke @regression
