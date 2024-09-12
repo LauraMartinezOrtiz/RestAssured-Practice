@@ -65,7 +65,7 @@ public class ResourceRequest extends BaseRequest{
      * @param resourceId string
      * @return rest-assured response
      */
-    public Response deleteClient(String resourceId) {
+    public Response deleteResource(String resourceId) {
         endpoint = String.format(Constants.URL_WITH_PARAM, Constants.RESOURCES_PATH, resourceId);
         return requestDelete(endpoint, createBaseHeaders());
     }

@@ -109,14 +109,14 @@ public class ClientSteps {
 
     @Then("validates the response with client JSON schema")
     public void userValidatesResponseWithClientJSONSchema() {
-        String path = "schemas/clientSchema.json";
+        String path = "schemas/client/clientSchema.json";
         Assert.assertTrue(clientRequest.validateSchema(response, path));
         logger.info("Successfully Validated schema from Client object");
     }
 
     @Then("validates the response with client list JSON schema")
     public void userValidatesResponseWithClientListJSONSchema() {
-        String path = "schemas/clientListSchema.json";
+        String path = "schemas/client/clientListSchema.json";
         Assert.assertTrue(clientRequest.validateSchema(response, path));
         logger.info("Successfully Validated schema from Client List object");
     }
