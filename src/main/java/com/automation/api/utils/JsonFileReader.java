@@ -1,5 +1,6 @@
 package com.automation.api.utils;
 
+import com.automation.api.models.Resource;
 import com.google.gson.Gson;
 import com.automation.api.models.Client;
 
@@ -24,5 +25,23 @@ public class JsonFileReader {
             e.printStackTrace();
         }
         return client;
+    }
+
+    /**
+     * This method read a JSON file and deserialize the body into a Client object
+     *
+     * @param jsonFileName json file location path
+     *
+     * @return Client : client
+     */
+    public Resource getResourceByJson(String jsonFileName) {
+        Resource resource = new Resource();
+        try (Reader reader = new FileReader(jsonFileName)) {
+            Gson gson = new Gson();
+            resource = gson.fromJson(reader, Resource.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resource;
     }
 }
