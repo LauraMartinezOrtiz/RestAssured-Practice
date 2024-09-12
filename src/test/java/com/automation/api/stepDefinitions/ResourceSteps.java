@@ -82,12 +82,12 @@ public class ResourceSteps {
         response = resourceRequest.updateResource(resource, resourceId);
     }
 
-    @Then("the response should have a status code of {int}")
+   /* @Then("the response should have a status code of {int}")
     public void theResponseShouldHaveAStatusCodeOf(int statusCode) {
         Assert.assertEquals(statusCode, response.statusCode());
-    }
+    }*/
 
-    @Then("the response should have the following details:")
+/*    @Then("the response should have the following details:")
     public void theResponseShouldHaveTheFollowingDetails(DataTable expectedData) {
         resource = resourceRequest.getResourceEntity(response);
         Map<String, String> expectedDataMap = expectedData.asMaps()
@@ -101,7 +101,7 @@ public class ResourceSteps {
         Assert.assertEquals(expectedDataMap.get("Tags"), resource.getTags());
         Assert.assertTrue(expectedDataMap.get("Active"), resource.isActive());
         Assert.assertEquals(expectedDataMap.get("Id"), resource.getId());
-    }
+    }*/
 
     @Then("the response should include the details of the created resource")
     public void theResponseShouldIncludeTheDetailsOfTheCreatedResource() {
@@ -112,15 +112,15 @@ public class ResourceSteps {
 
     @Then("validates the response with resource JSON schema")
     public void userValidatesResponseWithResourceJSONSchema() {
-        String path = "schemas/resource/resourceSchema.json";
+        String path = "schemas/resourceSchema.json";
         Assert.assertTrue(resourceRequest.validateSchema(response, path));
         logger.info("Successfully Validated schema from Resource object");
     }
 
     @Then("validates the response with resource list JSON schema")
     public void userValidatesResponseWithResourceListJSONSchema() {
-        String path = "schemas/resource/resourceListSchema.json";
+        String path = "schemas/resourceListSchema.json";
         Assert.assertTrue(resourceRequest.validateSchema(response, path));
-        logger.info("Successfully Validated schema from Client List object");
+        logger.info("Successfully Validated schema from Resource List object");
     }
 }

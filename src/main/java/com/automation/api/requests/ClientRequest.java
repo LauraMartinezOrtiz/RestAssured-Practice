@@ -4,7 +4,6 @@ import com.automation.api.models.Client;
 import com.automation.api.utils.Constants;
 import com.automation.api.utils.JsonFileReader;
 import com.google.gson.Gson;
-import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.jetbrains.annotations.NotNull;

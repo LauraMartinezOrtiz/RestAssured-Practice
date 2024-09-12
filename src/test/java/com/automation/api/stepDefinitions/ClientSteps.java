@@ -47,6 +47,8 @@ public class ClientSteps {
                 .city(clientDataMap.get("City"))
                 .email(clientDataMap.get("Email"))
                 .phone(clientDataMap.get("Phone"))
+                .gender(clientDataMap.get("Gender"))
+                .phoneNumber(clientDataMap.get("PhoneNumber"))
                 .build();
         logger.info("Client mapped: " + client);
     }
@@ -97,6 +99,8 @@ public class ClientSteps {
         Assert.assertEquals(expectedDataMap.get("City"), client.getCity());
         Assert.assertEquals(expectedDataMap.get("Email"), client.getEmail());
         Assert.assertEquals(expectedDataMap.get("Phone"), client.getPhone());
+        Assert.assertEquals(expectedDataMap.get("Gender"), client.getGender());
+        Assert.assertEquals(expectedDataMap.get("PhoneNumber"), client.getPhoneNumber());
         Assert.assertEquals(expectedDataMap.get("Id"), client.getId());
     }
 
@@ -120,5 +124,4 @@ public class ClientSteps {
         Assert.assertTrue(clientRequest.validateSchema(response, path));
         logger.info("Successfully Validated schema from Client List object");
     }
-
 }

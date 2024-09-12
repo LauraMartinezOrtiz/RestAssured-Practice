@@ -11,4 +11,6 @@ public final class Constants {
     public static final String URL = "/api/v1/%s";
     public static final String URL_WITH_PARAM = "/api/v1/%s/%s";
 
+    private Constants() {
+    }
 }
