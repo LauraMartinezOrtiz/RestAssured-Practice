@@ -2,4 +2,3 @@ com\automation\api\runner\TestRunner.class
 com\automation\api\stepDefinitions\ClientSteps.class
 com\automation\api\stepDefinitions\Hooks.class
 com\automation\api\stepDefinitions\ResourceSteps.class
-com\automation\api\stepDefinitions\UpdateClientPhoneNumberSteps.class
