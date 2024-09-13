@@ -36,7 +36,7 @@ public class ClientSteps {
             int clientsToCreate = clientsAmount - clientList.size();
             for (int i = 0; i < clientsToCreate; i++) {
                 response = clientRequest.createDefaultClient();
-                logger.info(response.statusCode());
+                logger.info("Create more clients status code: " + response.statusCode());
                 Assert.assertEquals(201, response.statusCode());
             }
         }
@@ -45,44 +45,43 @@ public class ClientSteps {
     @When("find the first client with Name {string}")
     public void sendGETNameRequest(String clientName) {
         response = clientRequest.getClientByName(clientName);
-        List<Client> clientList = clientRequest.getClientsEntity(response);
+        Client newClient = null;
 
-        Client firstClientWithName = null;
-
-        for (Client client : clientList) {
-            if (clientName.equalsIgnoreCase(client.getName())) {
-                firstClientWithName = client;
-                break;
-            }
-        }
-
-        if (firstClientWithName == null) {
-            Client newClient = new Client();
+        if (response.getStatusCode() == 404) {
+            newClient = new Client();
             newClient.setName(clientName);
             newClient.setLastName("Matthews");
             newClient.setCountry("UK");
             newClient.setCity("London");
             newClient.setEmail("mathews12@email.com");
             newClient.setPhone("31832323");
+
             response = clientRequest.createClient(newClient);
-            Assert.assertEquals(201, response.statusCode());
             client = clientRequest.getClientEntity(response);
+            logger.info(client);
+            Assert.assertEquals(201, response.statusCode());
             return;
+        } else {
+            List<Client> clientList = clientRequest.getClientsEntity(response);
+            for (Client client : clientList) {
+                if (client.getName().equalsIgnoreCase(clientName)) {
+                    newClient = client;
+                    break;
+                }
+            }
         }
 
-        client = firstClientWithName;
+        client = newClient;
 
-        logger.info(firstClientWithName);
-
+        logger.info("Found: " + client);
         logger.info(response.jsonPath()
                 .prettify());
-        logger.info("The first client is: " + firstClientWithName);
     }
 
     @When("I save the current phone number of the client")
     public void saveCurrentPhoneNumber() {
         currentPhone = client.getPhone();
-        logger.info(currentPhone + " Saved");
+        logger.info("Current phone saved: " + currentPhone);
     }
 
     @When("I send a PUT request to update the phone number of the client to {string}")
@@ -90,20 +89,20 @@ public class ClientSteps {
         client.setPhone(newPhone);
         response = clientRequest.updateClientById(client, client.getId());
         Assert.assertEquals(200, response.statusCode());
-        logger.info(client.getPhone());
+        logger.info("Phone updated to: " + client.getPhone());
     }
 
     @When("validates that the new phone number is different")
     public void checkNewPhoneNumberIsDifferent() {
         Client updatedClient = clientRequest.getClientEntity(response);
         Assert.assertNotEquals(currentPhone, updatedClient.getPhone());
-        logger.info(updatedClient);
+        logger.info("Updated client info:  " + updatedClient);
     }
 
     @Then("delete all the registered clients")
     public void deleteAllClients() {
         response = clientRequest.getClients();
-        logger.info(response.jsonPath()
+        logger.info("All clients: " + response.jsonPath()
                 .prettify());
 
         List<Client> clientList = clientRequest.getClientsEntity(response);
@@ -138,7 +137,7 @@ public class ClientSteps {
         response = clientRequest.getClient(client.getId());
         logger.info(response.jsonPath().prettify());
         logger.info("Found Client ID: " + client.getId());
-        Assert.assertEquals(200,response.statusCode());
+        Assert.assertEquals(200, response.statusCode());
     }
 
     @When("I send a PUT request to update the name parameter to {string}")
@@ -146,13 +145,13 @@ public class ClientSteps {
         client.setName(newName);
         response = clientRequest.updateClientById(client, client.getId());
         logger.info("New name: " + client.getName());
-        Assert.assertEquals(200,response.statusCode());
+        Assert.assertEquals(200, response.statusCode());
     }
 
     @When("I send a DELETE request to delete the new client")
     public void iSendADELETERequestToDeleteTheClientWithID() {
         response = clientRequest.deleteClient(client.getId());
-        Assert.assertEquals(200,response.statusCode());
+        Assert.assertEquals(200, response.statusCode());
     }
 
     @Then("the response should have the following details:")

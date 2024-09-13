@@ -20,5 +20,6 @@ Feature: Client testing CRUD
     When I find the new client
     And I send a PUT request to update the name parameter to "Luis"
     And the response should have a status code of 200
-    Then I send a DELETE request to delete the new client
+    And I send a DELETE request to delete the new client
+    Then the response should have a status code of 200
 
