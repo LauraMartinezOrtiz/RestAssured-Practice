@@ -8,6 +8,8 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class ClientRequest extends BaseRequest {
@@ -34,6 +36,13 @@ public class ClientRequest extends BaseRequest {
         return requestGet(endpoint, createBaseHeaders());
     }
 
+
+    public Response getClientByName(String clientName) {
+        String encodedClientName = URLEncoder.encode(clientName, StandardCharsets.UTF_8);
+        endpoint = String.format(Constants.URL_WITH_NAME_PARAM, Constants.CLIENTS_PATH, encodedClientName);
+        return requestGet(endpoint, createBaseHeaders());
+    }
+
     /**
      * Create client
      *
@@ -52,9 +61,21 @@ public class ClientRequest extends BaseRequest {
      * @param clientId string
      * @return rest-assured response
      */
-    public Response updateClient(Client client, String clientId) {
+    public Response updateClientById(Client client, String clientId) {
         endpoint = String.format(Constants.URL_WITH_PARAM, Constants.CLIENTS_PATH, clientId);
         return requestPut(endpoint, createBaseHeaders(), client);
+    }
+
+    /**
+     * Update client by name
+     *
+     * @param client   model
+     * @param clientName string
+     * @return rest-assured response
+     */
+    public Response updateClientByName(Client client, String clientName) {
+        endpoint = String.format(Constants.URL_WITH_NAME_PARAM, Constants.CLIENTS_PATH, clientName);
+        return requestPatch(endpoint, createBaseHeaders(), client);
     }
 
     /**

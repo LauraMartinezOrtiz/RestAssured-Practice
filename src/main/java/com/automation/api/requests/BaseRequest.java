@@ -59,6 +59,23 @@ public class BaseRequest {
     }
 
     /**
+     * This is a function to partially update an element using rest-assured
+     *
+     * @param endpoint api url
+     * @param headers  a map of headers
+     * @param body     model object
+     * @return Response
+     */
+    protected Response requestPatch(String endpoint, Map<String, ?> headers, Object body) {
+        return RestAssured.given()
+                .contentType(Constants.VALUE_CONTENT_TYPE)
+                .headers(headers)
+                .body(body)
+                .when()
+                .patch(endpoint);
+    }
+
+    /**
      * This is a function to delete an element using rest-assured
      *
      * @param endpoint api url

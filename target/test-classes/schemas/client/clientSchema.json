@@ -36,8 +36,6 @@
     "country",
     "city",
     "email",
-    "phone",
-    "gender",
-    "phoneNumber"
+    "phone"
   ]
 }

@@ -21,20 +21,7 @@ public class ClientSteps {
     private Response response;
     private Client client;
 
-    @Given("there are registered clients in the system")
-    public void thereAreRegisteredClientsInTheSystem() {
-        response = clientRequest.getClients();
-        logger.info(response.jsonPath()
-                .prettify());
-        Assert.assertEquals(200, response.statusCode());
 
-        List<Client> clientList = clientRequest.getClientsEntity(response);
-        if (clientList.isEmpty()) {
-            response = clientRequest.createDefaultClient();
-            logger.info(response.statusCode());
-            Assert.assertEquals(201, response.statusCode());
-        }
-    }
 
     @Given("I have a client with the following details:")
     public void iHaveAClientWithTheFollowingDetails(DataTable clientData) {
@@ -47,8 +34,6 @@ public class ClientSteps {
                 .city(clientDataMap.get("City"))
                 .email(clientDataMap.get("Email"))
                 .phone(clientDataMap.get("Phone"))
-                .gender(clientDataMap.get("Gender"))
-                .phoneNumber(clientDataMap.get("PhoneNumber"))
                 .build();
         logger.info("Client mapped: " + client);
     }
@@ -79,7 +64,7 @@ public class ClientSteps {
     @When("I send a PUT request to update the client with ID {string}")
     public void iSendAPUTRequestToUpdateTheClientWithID(String clientId, String requestBody) {
         client = clientRequest.getClientEntity(requestBody);
-        response = clientRequest.updateClient(client, clientId);
+        response = clientRequest.updateClientById(client, clientId);
     }
 
     @Then("the response should have a status code of {int}")
@@ -99,8 +84,6 @@ public class ClientSteps {
         Assert.assertEquals(expectedDataMap.get("City"), client.getCity());
         Assert.assertEquals(expectedDataMap.get("Email"), client.getEmail());
         Assert.assertEquals(expectedDataMap.get("Phone"), client.getPhone());
-        Assert.assertEquals(expectedDataMap.get("Gender"), client.getGender());
-        Assert.assertEquals(expectedDataMap.get("PhoneNumber"), client.getPhoneNumber());
         Assert.assertEquals(expectedDataMap.get("Id"), client.getId());
     }
 

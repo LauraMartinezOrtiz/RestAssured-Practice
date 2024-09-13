@@ -22,12 +22,6 @@
       },
       "phone": {
         "type": "string"
-      },
-      "gender": {
-        "type": "string"
-      },
-      "phoneNumber": {
-        "type": "string"
       }
     },
     "required": [
@@ -37,9 +31,7 @@
       "country",
       "city",
       "email",
-      "phone",
-      "gender",
-      "phoneNumber"
+      "phone"
     ]
   }
 }
