@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
+        <java.version>17</java.version>
         <cucumber.version>7.13.0</cucumber.version>
         <lombok.version>1.18.28</lombok.version>
         <gson.version>2.10.1</gson.version>

@@ -1,1 +1,9 @@
-com\automation\api\App.class
+com\automation\api\models\Resource$ResourceBuilder.class
+com\automation\api\utils\Constants.class
+com\automation\api\models\Client.class
+com\automation\api\requests\ClientRequest.class
+com\automation\api\requests\BaseRequest.class
+com\automation\api\requests\ResourceRequest.class
+com\automation\api\models\Resource.class
+com\automation\api\utils\JsonFileReader.class
+com\automation\api\models\Client$ClientBuilder.class

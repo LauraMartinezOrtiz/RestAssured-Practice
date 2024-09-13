@@ -7,35 +7,33 @@
     "name": {
       "type": "string"
     },
-    "lastName": {
+    "trademark": {
       "type": "string"
     },
-    "country": {
+    "stock": {
+      "type": "int"
+    },
+    "price": {
+      "type": "double"
+    },
+    "description": {
       "type": "string"
     },
-    "city": {
+    "tags": {
       "type": "string"
     },
-    "email": {
-      "type": "string"
-    },
-    "phone": {
-      "type": "string"
-    },
-    "gender": {
-      "type": "string"
-    },
-    "phoneNumber": {
-      "type": "string"
+    "active": {
+      "type": "boolean"
     }
   },
   "required": [
     "id",
     "name",
-    "lastName",
-    "country",
-    "city",
-    "email",
-    "phone"
+    "trademark",
+    "stock",
+    "price",
+    "description",
+    "tags",
+    "active"
   ]
 }

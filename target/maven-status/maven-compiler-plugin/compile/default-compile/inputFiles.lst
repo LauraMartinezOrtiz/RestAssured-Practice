@@ -1,1 +1,7 @@
-C:\Users\l.martinezortiz\RestAssured-Practice\src\main\java\com\automation\api\App.java
+C:\Users\l.martinezortiz\RestAssured-Practice\src\main\java\com\automation\api\models\Resource.java
+C:\Users\l.martinezortiz\RestAssured-Practice\src\main\java\com\automation\api\requests\ClientRequest.java
+C:\Users\l.martinezortiz\RestAssured-Practice\src\main\java\com\automation\api\utils\Constants.java
+C:\Users\l.martinezortiz\RestAssured-Practice\src\main\java\com\automation\api\requests\BaseRequest.java
+C:\Users\l.martinezortiz\RestAssured-Practice\src\main\java\com\automation\api\requests\ResourceRequest.java
+C:\Users\l.martinezortiz\RestAssured-Practice\src\main\java\com\automation\api\utils\JsonFileReader.java
+C:\Users\l.martinezortiz\RestAssured-Practice\src\main\java\com\automation\api\models\Client.java
