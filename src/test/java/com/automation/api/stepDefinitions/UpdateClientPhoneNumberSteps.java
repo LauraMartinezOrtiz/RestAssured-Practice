@@ -91,12 +91,29 @@ public class UpdateClientPhoneNumberSteps {
         logger.info(client.getPhone());
     }
 
-    @Then("validates that the new phone number is different")
-    public void theNewPhoneNumberIsDifferent() {
+    @When("validates that the new phone number is different")
+    public void checkNewPhoneNumberIsDifferent() {
         Client updatedClient = clientRequest.getClientEntity(response);
         Assert.assertNotEquals(currentPhone, updatedClient.getPhone());
         logger.info(updatedClient);
     }
 
+    @Then("delete all the registered clients")
+    public void deleteAllClients() {
+        response = clientRequest.getClients();
+        logger.info(response.jsonPath()
+                .prettify());
 
+        List<Client> clientList = clientRequest.getClientsEntity(response);
+
+        for (Client client : clientList) {
+            response = clientRequest.deleteClient(client.getId());
+        }
+    }
+
+    @Then("the response should have a status code of {int}")
+    public void theResponseShouldHaveAStatusCodeOf(int statusCode) {
+        Assert.assertEquals(statusCode, response.statusCode());
+    }
 }
+

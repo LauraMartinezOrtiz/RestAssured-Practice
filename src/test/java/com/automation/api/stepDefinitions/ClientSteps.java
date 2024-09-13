@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 
-import java.util.List;
 import java.util.Map;
 
 public class ClientSteps {
@@ -65,11 +64,6 @@ public class ClientSteps {
     public void iSendAPUTRequestToUpdateTheClientWithID(String clientId, String requestBody) {
         client = clientRequest.getClientEntity(requestBody);
         response = clientRequest.updateClientById(client, clientId);
-    }
-
-    @Then("the response should have a status code of {int}")
-    public void theResponseShouldHaveAStatusCodeOf(int statusCode) {
-        Assert.assertEquals(statusCode, response.statusCode());
     }
 
     @Then("the response should have the following details:")

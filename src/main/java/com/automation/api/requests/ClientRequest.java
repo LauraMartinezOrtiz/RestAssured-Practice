@@ -67,18 +67,6 @@ public class ClientRequest extends BaseRequest {
     }
 
     /**
-     * Update client by name
-     *
-     * @param client   model
-     * @param clientName string
-     * @return rest-assured response
-     */
-    public Response updateClientByName(Client client, String clientName) {
-        endpoint = String.format(Constants.URL_WITH_NAME_PARAM, Constants.CLIENTS_PATH, clientName);
-        return requestPatch(endpoint, createBaseHeaders(), client);
-    }
-
-    /**
      * Delete client by id
      *
      * @param clientId string
