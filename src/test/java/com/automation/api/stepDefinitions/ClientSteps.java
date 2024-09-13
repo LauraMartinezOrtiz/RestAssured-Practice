@@ -145,9 +145,7 @@ public class ClientSteps {
     public void updateClientName(String newName) {
         client.setName(newName);
         response = clientRequest.updateClientById(client, client.getId());
-        logger.info(client.getId());
-        logger.info(client.getName());
-        logger.info(response.statusCode());
+        logger.info("New name: " + client.getName());
         Assert.assertEquals(200,response.statusCode());
     }
 
