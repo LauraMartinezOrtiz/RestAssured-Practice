@@ -11,6 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+/**
+ * The type Resource request.
+ */
 public class ResourceRequest extends BaseRequest{
 
     private String endpoint;
@@ -70,10 +73,22 @@ public class ResourceRequest extends BaseRequest{
         return requestDelete(endpoint, createBaseHeaders());
     }
 
+    /**
+     * Delete resource by id
+     *
+     * @param response rest-assured response
+     * @return resource model
+     */
     public Resource getResourceEntity(@NotNull Response response) {
         return response.as(Resource.class);
     }
 
+    /**
+     * Gets Resources entity.
+     *
+     * @param response rest-assured response
+     * @return list of resources
+     */
     public List<Resource> getResourcesEntity(@NotNull Response response) {
         JsonPath jsonPath = response.jsonPath();
         return jsonPath.getList("", Resource.class);
