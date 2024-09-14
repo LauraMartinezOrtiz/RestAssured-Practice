@@ -38,6 +38,11 @@ public class ResourceSteps {
         generateMoreResources(resourcesAmount);
     }
 
+    /**
+     * Generate more resources
+     *
+     * @param resourcesAmount int
+     */
     private void generateMoreResources(int resourcesAmount) {
         List<Resource> resourceList = resourceRequest.getResourcesEntity(response);
 
@@ -145,13 +150,6 @@ public class ResourceSteps {
     @Then("the resource response should have a status code of {int}")
     public void theResourceResponseShouldHaveAStatusCodeOf(int statusCode) {
         Assert.assertEquals(statusCode, response.statusCode());
-    }
-
-    @Then("the response should include the details of the created resource")
-    public void theResponseShouldIncludeTheDetailsOfTheCreatedResource() {
-        Resource new_resource = resourceRequest.getResourceEntity(response);
-        new_resource.setId(null);
-        Assert.assertEquals(resource, new_resource);
     }
 
     /**
