@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,19 +22,21 @@ public class ResourceSteps {
 
     private Response response;
     private Resource resource;
+    private List<Resource> activeList = new ArrayList<>();
+    private CommonSteps commonSteps;
 
-    @Given("there are registered resources in the system")
-    public void thereAreRegisteredResourcesInTheSystem() {
-        response = resourceRequest.getResources();
-        logger.info(response.jsonPath()
-                .prettify());
-        Assert.assertEquals(200, response.statusCode());
-
+    @Given("there are at least {int} active resources in the system")
+    public void thereAreRegisteredResourcesInTheSystem(int resourcesAmount) {
+        iSendAGETRequestToViewAllTheResources();
         List<Resource> resourceList = resourceRequest.getResourcesEntity(response);
-        if (resourceList.isEmpty()) {
-            response = resourceRequest.createDefaultResource();
-            logger.info(response.statusCode());
-            Assert.assertEquals(201, response.statusCode());
+
+        if (resourceList.size() < resourcesAmount) {
+            int resourcesToCreate = resourcesAmount - resourceList.size();
+            for (int i = 0; i < resourcesToCreate; i++) {
+                response = resourceRequest.createDefaultResource();
+                logger.info("Create more resources status code: " + response.statusCode());
+                Assert.assertEquals(201, response.statusCode());
+            }
         }
     }
 
@@ -45,7 +48,7 @@ public class ResourceSteps {
                 .name(resourceDataMap.get("Name"))
                 .trademark(resourceDataMap.get("Trademark"))
                 .stock(Integer.parseInt(resourceDataMap.get("Stock")))
-                .price(Double.parseDouble(resourceDataMap.get("Price")))
+                .price(Float.parseFloat(resourceDataMap.get("Price")))
                 .description(resourceDataMap.get("Description"))
                 .tags(resourceDataMap.get("Tags"))
                 .active(Boolean.parseBoolean(resourceDataMap.get("Active")))
@@ -53,17 +56,32 @@ public class ResourceSteps {
         logger.info("Resource mapped: " + resource);
     }
 
-    @When("I retrieve the details of the resource with ID {string}")
-    public void sendGETRequest(String resourceId) {
-        response = resourceRequest.getResource(resourceId);
-        logger.info(response.jsonPath()
-                .prettify());
-        logger.info("The status code is: " + response.statusCode());
+    @When("I find all the active resources")
+    public void sendGETRequest() {
+        iSendAGETRequestToViewAllTheResources();
+        List<Resource> resourceList = resourceRequest.getResourcesEntity(response);
+        for (Resource resource : resourceList) {
+            if (resource.isActive()) {
+                activeList.add(resource);
+            }
+        }
+        Assert.assertNotNull(activeList);
     }
 
-    @When("I send a GET request to view all the resources")
-    public void iSendAGETRequestToViewAllTheResources() {
+    @Then("I update them as inactive")
+    public void updateResourcesToInactive() {
+        for (Resource resource : activeList) {
+            resource.setActive(false);
+            response = resourceRequest.updateResource(resource, resource.getId());
+            Assert.assertEquals(200, response.statusCode());
+        }
+    }
+
+    private void iSendAGETRequestToViewAllTheResources() {
         response = resourceRequest.getResources();
+        Assert.assertEquals(200, response.statusCode());
+        logger.info(response.jsonPath()
+                .prettify());
     }
 
     @When("I send a POST request to create a resource")
@@ -81,11 +99,6 @@ public class ResourceSteps {
         resource = resourceRequest.getResourceEntity(requestBody);
         response = resourceRequest.updateResource(resource, resourceId);
     }
-
-   /* @Then("the response should have a status code of {int}")
-    public void theResponseShouldHaveAStatusCodeOf(int statusCode) {
-        Assert.assertEquals(statusCode, response.statusCode());
-    }*/
 
 /*    @Then("the response should have the following details:")
     public void theResponseShouldHaveTheFollowingDetails(DataTable expectedData) {
@@ -112,14 +125,14 @@ public class ResourceSteps {
 
     @Then("validates the response with resource JSON schema")
     public void userValidatesResponseWithResourceJSONSchema() {
-        String path = "schemas/resourceSchema.json";
+        String path = "schemas/resource/resourceSchema.json";
         Assert.assertTrue(resourceRequest.validateSchema(response, path));
         logger.info("Successfully Validated schema from Resource object");
     }
 
     @Then("validates the response with resource list JSON schema")
     public void userValidatesResponseWithResourceListJSONSchema() {
-        String path = "schemas/resourceListSchema.json";
+        String path = "schemas/resource/resourceListSchema.json";
         Assert.assertTrue(resourceRequest.validateSchema(response, path));
         logger.info("Successfully Validated schema from Resource List object");
     }

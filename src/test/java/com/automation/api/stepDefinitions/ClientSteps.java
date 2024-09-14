@@ -169,10 +169,10 @@ public class ClientSteps {
         Assert.assertEquals(expectedDataMap.get("Id"), client.getId());
     }
 
-    @Then("the response should have a status code of {int}")
+/*    @Then("the response should have a status code of {int}")
     public void theResponseShouldHaveAStatusCodeOf(int statusCode) {
         Assert.assertEquals(statusCode, response.statusCode());
-    }
+    }*/
 
     @Then("validates the response with client JSON schema")
     public void userValidatesResponseWithClientJSONSchema() {

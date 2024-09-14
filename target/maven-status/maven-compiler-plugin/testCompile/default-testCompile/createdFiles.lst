@@ -1,3 +1,4 @@
+com\automation\api\stepDefinitions\CommonSteps.class
 com\automation\api\runner\TestRunner.class
 com\automation\api\stepDefinitions\ClientSteps.class
 com\automation\api\stepDefinitions\Hooks.class
