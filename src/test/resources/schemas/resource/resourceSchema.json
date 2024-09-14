@@ -11,10 +11,10 @@
       "type": "string"
     },
     "stock": {
-      "type": "int"
+      "type": "number"
     },
     "price": {
-      "type": "double"
+      "type": "number"
     },
     "description": {
       "type": "string"

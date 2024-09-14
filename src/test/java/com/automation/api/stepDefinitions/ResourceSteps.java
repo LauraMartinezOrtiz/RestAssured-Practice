@@ -84,20 +84,24 @@ public class ResourceSteps {
                 .prettify());
     }
 
-    @When("I send a POST request to create a resource")
-    public void iSendAPOSTRequestToCreateAResource() {
-        response = resourceRequest.createResource(resource);
+    @When("I find the latest resource")
+    public void findLastResource() {
+        iSendAGETRequestToViewAllTheResources();
+        List<Resource> resourceList = resourceRequest.getResourcesEntity(response);
+        resource = resourceList.get(resourceList.size() - 1);
     }
 
-    @When("I send a DELETE request to delete the resource with ID {string}")
-    public void iSendADELETERequestToDeleteTheResourceWithID(String resourceId) {
-        response = resourceRequest.deleteResource(resourceId);
-    }
-
-    @When("I send a PUT request to update the resource with ID {string}")
-    public void iSendAPUTRequestToUpdateTheResourceWithID(String resourceId, String requestBody) {
-        resource = resourceRequest.getResourceEntity(requestBody);
-        response = resourceRequest.updateResource(resource, resourceId);
+    @When("I update all the parameters of this resource")
+    public void iSendAPUTRequestToUpdateTheResource() {
+        resource.setName("Gold salmon");
+        resource.setTrademark("Trinks");
+        resource.setStock(10);
+        resource.setPrice(200);
+        resource.setDescription("Best salmon");
+        resource.setTags("id");
+        resource.setActive(false);
+        response = resourceRequest.updateResource(resource, resource.getId());
+        Assert.assertEquals(200, response.getStatusCode());
     }
 
 /*    @Then("the response should have the following details:")
@@ -108,12 +112,11 @@ public class ResourceSteps {
 
         Assert.assertEquals(expectedDataMap.get("Name"), resource.getName());
         Assert.assertEquals(expectedDataMap.get("Trademark"), resource.getTrademark());
-        //Assert.assertEquals(expectedDataMap.get("Stock"), resource.getStock());
-        //Assert.assertEquals(expectedDataMap.get("Price"), resource.getPrice());
+        Assert.assertEquals(Integer.parseInt(expectedDataMap.get("Stock")), resource.getStock());
+        Assert.assertEquals(Float.parseFloat(expectedDataMap.get("Price")), resource.getPrice());
         Assert.assertEquals(expectedDataMap.get("Description"), resource.getDescription());
         Assert.assertEquals(expectedDataMap.get("Tags"), resource.getTags());
         Assert.assertTrue(expectedDataMap.get("Active"), resource.isActive());
-        Assert.assertEquals(expectedDataMap.get("Id"), resource.getId());
     }*/
 
     @Then("the response should include the details of the created resource")
