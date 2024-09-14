@@ -33,3 +33,4 @@ git clone https://github.com/LauraMartinezOrtiz/RestAssured-Practice
 ```
 mvn clean install
 ```
+3. Go to `TestRunner` and run the tests.
