@@ -125,7 +125,7 @@ public class ClientSteps {
     @Then("delete all the registered clients")
     public void deleteAllClients() {
         response = clientRequest.getClients();
-        logger.info("All clients: " + response.jsonPath()
+        logger.info("All clients deleted: " + response.jsonPath()
                 .prettify());
 
         List<Client> clientList = clientRequest.getClientsEntity(response);
@@ -155,9 +155,7 @@ public class ClientSteps {
                 .phone(clientDataMap.get("Phone"))
                 .build();
         logger.info("Client mapped: " + client);
-        response = clientRequest.createClient(client);
-        client = clientRequest.getClientEntity(response);
-        Assert.assertEquals(201, response.statusCode());
+
     }
 
     /**
@@ -166,9 +164,19 @@ public class ClientSteps {
     @When("I find the new client")
     public void findTheNewClient() {
         response = clientRequest.getClient(client.getId());
-        logger.info(response.jsonPath().prettify());
+        logger.info("Found Client" + response.jsonPath().prettify());
         logger.info("Found Client ID: " + client.getId());
         Assert.assertEquals(200, response.statusCode());
+    }
+
+    /**
+     * Send a post request to create a client.
+     */
+    @When("I send a POST request to create a client")
+    public void iSendAPOSTRequestToCreateAClient() {
+        response = clientRequest.createClient(client);
+        client = clientRequest.getClientEntity(response);
+        Assert.assertEquals(201, response.statusCode());
     }
 
     /**
@@ -188,6 +196,7 @@ public class ClientSteps {
     public void iSendADELETERequestToDeleteTheClientWithID() {
         response = clientRequest.deleteClient(client.getId());
         Assert.assertEquals(200, response.statusCode());
+        logger.info("Client deleted: " + response.jsonPath().prettify());
     }
 
     @Then("the response should have a status code of {int}")

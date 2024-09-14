@@ -32,9 +32,13 @@ public class ResourceSteps {
      *
      * @param resourcesAmount int
      */
-    @Given("there are at least {int} active resources in the system")
+    @Given("there are at least {int} resources in the system")
     public void thereAreRegisteredResourcesInTheSystem(int resourcesAmount) {
         iSendAGETRequestToViewAllTheResources();
+        generateMoreResources(resourcesAmount);
+    }
+
+    private void generateMoreResources(int resourcesAmount) {
         List<Resource> resourceList = resourceRequest.getResourcesEntity(response);
 
         if (resourceList.size() < resourcesAmount) {

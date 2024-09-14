@@ -10,16 +10,20 @@ Feature: Client testing
     And validates that the new phone number is different
     Then delete all the registered clients
     And the response should have a status code of 200
+    And validates the response with client JSON schema
 
   @smoke
   Scenario: Update and delete a New Client
     Given I have a client with the following details:
       | Name | LastName | Country  | City | Email          | Phone     |
       | Juan | Test     | Colombia | Cali | juan@email.com | 232435656 |
+    When I send a POST request to create a client
+    And the response should have a status code of 201
     And validates the response with client JSON schema
     When I find the new client
     And I send a PUT request to update the name parameter to "Luis"
     And the response should have a status code of 200
-    And I send a DELETE request to delete the new client
+    And validates the response with client JSON schema
+    When I send a DELETE request to delete the new client
     Then the response should have a status code of 200
 
