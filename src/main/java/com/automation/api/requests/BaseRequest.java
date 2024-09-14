@@ -89,9 +89,8 @@ public class BaseRequest {
             response.then()
                     .assertThat()
                     .body(JsonSchemaValidator.matchesJsonSchemaInClasspath(schemaPath));
-            return true; // Return true if the assertion passes
+            return true;
         } catch (AssertionError e) {
-            // Assertion failed, return false
             return false;
         }
     }

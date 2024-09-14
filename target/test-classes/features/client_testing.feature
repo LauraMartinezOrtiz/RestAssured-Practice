@@ -1,5 +1,5 @@
 @active
-Feature: Client testing CRUD
+Feature: Client testing
 
   @smoke
   Scenario: Change the phone number of the first Client named Laura

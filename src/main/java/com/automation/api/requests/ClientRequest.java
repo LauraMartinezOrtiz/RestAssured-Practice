@@ -12,6 +12,9 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+/**
+ * The type Client request.
+ */
 public class ClientRequest extends BaseRequest {
     private String endpoint;
 
@@ -77,10 +80,22 @@ public class ClientRequest extends BaseRequest {
         return requestDelete(endpoint, createBaseHeaders());
     }
 
+    /**
+     * Gets client entity.
+     *
+     * @param response rest-assured response
+     * @return the client model
+     */
     public Client getClientEntity(@NotNull Response response) {
         return response.as(Client.class);
     }
 
+    /**
+     * Gets clients entity.
+     *
+     * @param response rest-assured response
+     * @return list of clients
+     */
     public List<Client> getClientsEntity(@NotNull Response response) {
         JsonPath jsonPath = response.jsonPath();
         return jsonPath.getList("", Client.class);
